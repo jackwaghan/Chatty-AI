@@ -4,16 +4,23 @@ import Header from "./Header";
 import ChatResponse from "./ChatResponse";
 import ChatRequest from "./ChatRequest";
 import { useChat } from "@ai-sdk/react";
-const Chat = () => {
+interface ChatProps {
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSidebarOpen: boolean;
+}
+const Chat: React.FC<ChatProps> = ({ setIsSidebarOpen, isSidebarOpen }) => {
   const { handleInputChange, handleSubmit, isLoading, messages, input, stop } =
     useChat({
-      api: "http://localhost:3000/api/Gemini",
+      api: "/api/Gemini",
     });
   return (
     <div className="flex flex-col h-full w-full p-2 ">
       {/* Sticky Header */}
       <div className="h-[55px] w-full sticky top-0  z-10">
-        <Header />
+        <Header
+          setIsSidebarOpen={setIsSidebarOpen}
+          isSidebarOpen={isSidebarOpen}
+        />
       </div>
 
       {/* Scrollable Chat Content */}
