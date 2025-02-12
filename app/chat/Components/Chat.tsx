@@ -19,6 +19,7 @@ const Chat: React.FC<ChatProps> = memo(
       stop,
     } = useChat({
       api: "/api/Gemini",
+      sendExtraMessageFields: true,
     });
     return (
       <div className="flex flex-col h-full w-full p-2 ">

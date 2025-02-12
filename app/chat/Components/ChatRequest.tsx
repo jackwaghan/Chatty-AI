@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { FormEvent, memo } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 import { LuCircleStop } from "react-icons/lu";
 interface ChatRequestProps {
@@ -8,6 +8,7 @@ interface ChatRequestProps {
   isLoading: boolean;
   stop: () => void;
 }
+
 const ChatRequest: React.FC<ChatRequestProps> = memo(
   ({ handleInputChange, handleSubmit, input, isLoading, stop }) => {
     return (

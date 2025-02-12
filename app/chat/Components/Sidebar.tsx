@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { memo } from "react";
 import { TbLayoutSidebarFilled } from "react-icons/tb";
 
@@ -5,7 +6,24 @@ interface SidebarProps {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarOpen: boolean;
 }
-
+const demoData = [
+  {
+    id: 1,
+    chat: "Demo Chat 1",
+  },
+  {
+    id: 2,
+    chat: "Demo Chat 2",
+  },
+  {
+    id: 3,
+    chat: "Demo Chat 3",
+  },
+  {
+    id: 4,
+    chat: "Demo Chat 4",
+  },
+];
 const Sidebar: React.FC<SidebarProps> = memo(
   ({ setIsSidebarOpen, isSidebarOpen }) => {
     console.log("Sidebar rendered"); // Add this line
@@ -23,9 +41,19 @@ const Sidebar: React.FC<SidebarProps> = memo(
           )}
           <h1 className="font-semibold text-xl">Sidebar</h1>
         </div>
-        <div className="w-full h-screen flex justify-center items-center">
-          History
+        <div className="w-full h-screen flex flex-col p-2">
+          {demoData.map((data) => (
+            <Link
+              href={`/chat/${data.id}`}
+              key={data.id}
+              className="px-2 py-1 hover:bg-[#1A1C1E] cursor-pointer rounded-lg"
+            >
+              <p>{data.chat}</p>
+            </Link>
+          ))}
         </div>
+
+        <Profile />
       </div>
     );
   }
@@ -33,3 +61,12 @@ const Sidebar: React.FC<SidebarProps> = memo(
 
 Sidebar.displayName = "Sidebar";
 export default Sidebar;
+
+const Profile = () => {
+  return (
+    <div className="h-[60px] w-full flex items-center gap-4 justify-center">
+      <h1 className="">Logo</h1>
+      <h1>Jack Waghan A S</h1>
+    </div>
+  );
+};
