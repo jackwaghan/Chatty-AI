@@ -12,7 +12,7 @@ interface ChatRequestProps {
 const ChatRequest: React.FC<ChatRequestProps> = memo(
   ({ handleInputChange, handleSubmit, input, isLoading, stop }) => {
     return (
-      <div className="h-full w-full bg-[#1A1C1E] rounded-b-3xl flex items-center justify-center">
+      <div className="mt-1 sticky bottom-0 left-0 right-0 h-[80px] bg-[#1A1C1E] rounded-b-3xl flex items-center justify-center">
         <div className="w-[350px] md:w-[700px] pl-6 pr-3 py-3 bg-black rounded-full ">
           <form
             onSubmit={handleSubmit}

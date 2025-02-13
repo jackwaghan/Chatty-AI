@@ -19,7 +19,9 @@ const MarkdownRenderer = memo(({ content }: { content: string }) => {
         {...props}
       />
     ),
-    p: ({ ...props }) => <p className="text-base my-4" {...props} />,
+    p: ({ ...props }) => (
+      <p className="text-[15px] md:text-base  my-4" {...props} />
+    ),
     a: ({ ...props }) => (
       <a className="text-blue-400 hover:underline text-wrap" {...props} />
     ),
@@ -40,7 +42,10 @@ const MarkdownRenderer = memo(({ content }: { content: string }) => {
     ),
     ul: ({ ...props }) => <ul className="ml-4 my-2" {...props} />,
     li: ({ ...props }) => (
-      <li className="list-disc text-base text-white/80 my-4" {...props} />
+      <li
+        className="list-disc text-[15px] md:text-base text-white/80 my-4"
+        {...props}
+      />
     ),
     ol: ({ ...props }) => <ol className="list-decimal ml-6" {...props} />,
     table: ({ ...props }) => <table className="min-w-full" {...props} />,

@@ -19,7 +19,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-
-body {
-  @apply bg-black text-white;
-}

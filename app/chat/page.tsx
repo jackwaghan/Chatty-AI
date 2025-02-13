@@ -10,25 +10,19 @@ MemoizedChat.displayName = "Chat";
 
 const Page = ({}) => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  // const initialMessages = [];
   return (
-    <div className="flex w-screen h-screen">
+    <div className="flex h-dvh w-dvw  bg-black text-white overflow-hidden ">
       {isSidebarOpen && (
-        <div className="w-[300px] h-full">
-          <MemoizedSidebar
-            setIsSidebarOpen={setIsSidebarOpen}
-            isSidebarOpen={isSidebarOpen}
-          />
-        </div>
-      )}
-      <div className="h-full w-full">
-        <MemoizedChat
+        <MemoizedSidebar
           setIsSidebarOpen={setIsSidebarOpen}
           isSidebarOpen={isSidebarOpen}
-          // id=""
-          // initialMessages={initialMessages}
         />
-      </div>
+      )}
+
+      <MemoizedChat
+        setIsSidebarOpen={setIsSidebarOpen}
+        isSidebarOpen={isSidebarOpen}
+      />
       {/* <div className="fixed flex items-center justify-center w-screen h-screen bg-white/10">
         <div className="w-[50%] h-[50%] bg-white rounded-xl"></div>
       </div> */}

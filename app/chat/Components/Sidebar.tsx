@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = memo(
     console.log("Sidebar rendered"); // Add this line
 
     return (
-      <div className="flex flex-col h-full w-full">
+      <div className="flex flex-col w-[250px] ">
         <div className="h-[60px] w-full items-center flex p-2 gap-12">
           {isSidebarOpen && (
             <div

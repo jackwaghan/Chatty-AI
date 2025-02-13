@@ -15,8 +15,8 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
   }, [messages]);
   console.log("ChatResponse rendered"); // Add this line
   return (
-    <div className="h-full w-full ">
-      <div className="w-[330px] md:w-[700px]  flex mx-auto h-full flex-col gap-6  text-white/80">
+    <div className="flex-1 flex items-center justify-center overflow-y-scroll bg-[#1A1C1E] rounded-tl-3xl rounded-tr-3xl">
+      <div className="w-[330px] md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
         {messages.map((message) => (
           <div
             key={message.id}
