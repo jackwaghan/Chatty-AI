@@ -9,8 +9,13 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (messages.length > 0 && messages[messages.length - 1].role === "user") {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
     }
   }, [messages]);
   console.log("ChatResponse rendered"); // Add this line
@@ -39,7 +44,7 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} className="pt-20" />
+        <div ref={messagesEndRef} className="pt-[100%]" />
       </div>
     </div>
   );
