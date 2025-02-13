@@ -27,11 +27,16 @@ const ChatRequest: React.FC<ChatRequestProps> = memo(
             />
             <button
               type="submit"
-              disabled={input.length === 0}
+              disabled={input.length === 0 && !isLoading}
               className={` flex justify-center items-center rounded-full bg-white  ${input.length === 0 && !isLoading ? "opacity-50  cursor-not-allowed" : "cursor-pointer hover:opacity-80"}`}
             >
               {isLoading ? (
-                <LuCircleStop onClick={stop} className="fill-black w-8 h-8 " />
+                <LuCircleStop
+                  className="fill-black w-8 h-8 "
+                  onClick={() => {
+                    stop();
+                  }}
+                />
               ) : (
                 <FaArrowUp className="fill-black w-8 h-8 p-1.5" />
               )}

@@ -18,6 +18,7 @@ const Header: React.FC<HeaderProps> = memo(
     const modelRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+      if (!isModelOpen) return;
       const handleClickOutside = (event: MouseEvent) => {
         if (
           modelRef.current &&
@@ -31,7 +32,7 @@ const Header: React.FC<HeaderProps> = memo(
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, []);
+    }, [isModelOpen]);
 
     const handleSidebarToggle = () => {
       setIsSidebarOpen((prev) => !prev);
@@ -58,7 +59,7 @@ const Header: React.FC<HeaderProps> = memo(
           </Link>
           <div
             ref={modelRef}
-            className="p-1.5 rounded-lg hover:bg-[#1A1C1E] relative flex  items-center justify-center gap-3 cursor-pointer"
+            className="px-2 py-1.5 rounded-lg hover:bg-[#1A1C1E] relative flex  items-center justify-center gap-3 cursor-pointer"
             onClick={() => setIsModelOpen((prev) => !prev)}
           >
             {isModelOpen && (

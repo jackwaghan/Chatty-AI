@@ -46,9 +46,9 @@ const Sidebar: React.FC<SidebarProps> = memo(
             <Link
               href={`/chat/${data.id}`}
               key={data.id}
-              className="px-2 py-1 hover:bg-[#1A1C1E] cursor-pointer rounded-lg"
+              className="px-2 py-1 hover:bg-[#1A1C1E] cursor-pointer rounded-lg "
             >
-              <p>{data.chat}</p>
+              <p className="text-sm">{data.chat}</p>
             </Link>
           ))}
         </div>
