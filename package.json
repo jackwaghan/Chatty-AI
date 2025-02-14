@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^1.1.11",
+    "@supabase/supabase-js": "^2.48.1",
     "ai": "^4.1.34",
     "next": "15.1.6",
     "react": "^19.0.0",

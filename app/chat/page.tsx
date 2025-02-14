@@ -8,8 +8,18 @@ MemoizedSidebar.displayName = "Sidebar";
 const MemoizedChat = React.memo(Chat);
 MemoizedChat.displayName = "Chat";
 
-const Page = ({}) => {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+const Page = ({
+  sidebar,
+  initialMessage,
+}: {
+  sidebar: boolean;
+  initialMessage: {
+    id: string;
+    role: "system" | "user" | "assistant" | "data";
+    content: string;
+  }[];
+}) => {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(sidebar || false);
   return (
     <div className="flex h-dvh w-dvw  bg-black text-white overflow-hidden ">
       {isSidebarOpen && (
@@ -20,6 +30,7 @@ const Page = ({}) => {
       )}
 
       <MemoizedChat
+        initialMessages={initialMessage}
         setIsSidebarOpen={setIsSidebarOpen}
         isSidebarOpen={isSidebarOpen}
       />

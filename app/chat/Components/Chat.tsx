@@ -7,9 +7,14 @@ import { useChat } from "@ai-sdk/react";
 interface ChatProps {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarOpen: boolean;
+  initialMessages: {
+    id: string;
+    role: "system" | "user" | "assistant" | "data";
+    content: string;
+  }[];
 }
 const Chat: React.FC<ChatProps> = memo(
-  ({ setIsSidebarOpen, isSidebarOpen }) => {
+  ({ setIsSidebarOpen, isSidebarOpen, initialMessages }) => {
     const {
       handleInputChange,
       handleSubmit,
@@ -19,7 +24,8 @@ const Chat: React.FC<ChatProps> = memo(
       stop,
     } = useChat({
       api: "/api/Gemini",
-      sendExtraMessageFields: true,
+      initialMessages: initialMessages,
+      id: "1",
     });
     return (
       <div className="flex flex-col  p-2 h-full w-full">

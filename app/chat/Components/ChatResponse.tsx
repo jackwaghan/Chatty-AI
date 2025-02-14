@@ -18,7 +18,7 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
       }
     }
   }, [messages]);
-  console.log("ChatResponse rendered"); // Add this line
+  console.log(messages); // Add this line
   return (
     <div className="flex-1 flex items-center justify-center overflow-y-scroll bg-[#1A1C1E] rounded-tl-3xl rounded-tr-3xl">
       <div className="w-[330px] md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
@@ -44,7 +44,7 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} className="pt-[100%]" />
+        <div ref={messagesEndRef} className="pb-[100%] lg:pb-[60%]" />
       </div>
     </div>
   );
