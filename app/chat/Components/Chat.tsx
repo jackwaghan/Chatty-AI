@@ -4,9 +4,11 @@ import Header from "./Header";
 import ChatResponse from "./ChatResponse";
 import ChatRequest from "./ChatRequest";
 import { useChat } from "@ai-sdk/react";
+import { createIdGenerator } from "ai";
 interface ChatProps {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarOpen: boolean;
+  chatid: string;
   initialMessages: {
     id: string;
     role: "system" | "user" | "assistant" | "data";
@@ -14,7 +16,15 @@ interface ChatProps {
   }[];
 }
 const Chat: React.FC<ChatProps> = memo(
-  ({ setIsSidebarOpen, isSidebarOpen, initialMessages }) => {
+  ({ setIsSidebarOpen, isSidebarOpen, initialMessages, chatid }) => {
+    const [id, setId] = React.useState<string | undefined>(undefined);
+    React.useEffect(() => {
+      if (chatid) {
+        setId(chatid);
+      }
+      const newId = createIdGenerator({ size: 16 })();
+      setId(newId);
+    }, [chatid]);
     const {
       handleInputChange,
       handleSubmit,
@@ -25,8 +35,13 @@ const Chat: React.FC<ChatProps> = memo(
     } = useChat({
       api: "/api/Gemini",
       initialMessages: initialMessages,
-      id: "1",
+      id: id,
+      generateId: createIdGenerator({
+        prefix: "user",
+        size: 16,
+      }),
     });
+    console.log(id);
     return (
       <div className="flex flex-col  p-2 h-full w-full">
         <Header

@@ -22,7 +22,7 @@ const page = async ({ params }: { params: { chatid: string } }) => {
 
   console.log(history);
 
-  return <Page sidebar={true} initialMessage={history} />;
+  return <Page sidebar={true} initialMessage={history} chatid={chatid} />;
 };
 
 export default page;

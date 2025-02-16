@@ -10,9 +10,11 @@ MemoizedChat.displayName = "Chat";
 
 const Page = ({
   sidebar,
+  chatid,
   initialMessage,
 }: {
   sidebar: boolean;
+  chatid: string;
   initialMessage: {
     id: string;
     role: "system" | "user" | "assistant" | "data";
@@ -33,6 +35,7 @@ const Page = ({
         initialMessages={initialMessage}
         setIsSidebarOpen={setIsSidebarOpen}
         isSidebarOpen={isSidebarOpen}
+        chatid={chatid}
       />
       {/* <div className="fixed flex items-center justify-center w-screen h-screen bg-white/10">
         <div className="w-[50%] h-[50%] bg-white rounded-xl"></div>
