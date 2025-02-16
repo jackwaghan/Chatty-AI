@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
@@ -15,12 +16,8 @@ interface dataTypes {
 
 export const saveMessage = async (value: dataTypes) => {
   const { data, error } = await supabase
-    .from("Chatty -AI")
-    .upsert({
-      id: value.id.toString(),
-      chatid: value.id.toString(),
-      Message: JSON.stringify(value.messages, null, 2),
-    })
+    .from("Chatty-AI")
+    .upsert({ id: value.id, message: value.messages })
     .select();
 
   if (error) {
@@ -31,14 +28,14 @@ export const saveMessage = async (value: dataTypes) => {
 
 export const getMessages = async (id: string) => {
   const { data, error } = await supabase
-    .from("Chatty -AI")
+    .from("Chatty-AI")
     .select("*")
-    .eq("chatid", id);
+    .eq("id", id);
 
   if (error) {
-    throw new Error(error.message);
+    redirect("/chat");
   }
-  return data[0].Message;
+  return data;
 };
 
 export const getChatId = async (id: string) => {
@@ -51,4 +48,13 @@ export const getChatId = async (id: string) => {
     throw new Error(error.message);
   }
   return data[0].chatid;
+};
+
+export const getChat = async () => {
+  const { data, error } = await supabase.from("Chatty-AI").select("id");
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };

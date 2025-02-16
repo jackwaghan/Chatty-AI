@@ -7,15 +7,14 @@ import {
   streamText,
 } from "ai";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 interface dataTypes {
   id: string;
   messages: { id: string; role: string; content: string }[];
 }
 
 export async function POST(req: Request) {
-  const { messages, id } = await req.json();
-  console.log(messages, id);
+  const { messages, uuid } = await req.json();
   const result = await streamText({
     model: google("gemini-2.0-flash-001"),
     system:
@@ -28,7 +27,7 @@ export async function POST(req: Request) {
     }),
     async onFinish({ response }) {
       const data: dataTypes = {
-        id: id,
+        id: uuid,
         messages: appendResponseMessages({
           messages,
           responseMessages: response.messages,

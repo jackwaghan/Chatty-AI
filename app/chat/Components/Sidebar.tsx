@@ -1,3 +1,4 @@
+import { getChat } from "@/app/action";
 import Link from "next/link";
 import React, { memo } from "react";
 import { TbLayoutSidebarFilled } from "react-icons/tb";
@@ -6,27 +7,45 @@ interface SidebarProps {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarOpen: boolean;
 }
-const demoData = [
-  {
-    id: 1,
-    chat: "Demo Chat 1",
-  },
-  {
-    id: 2,
-    chat: "Demo Chat 2",
-  },
-  {
-    id: 3,
-    chat: "Demo Chat 3",
-  },
-  {
-    id: 4,
-    chat: "Demo Chat 4",
-  },
-];
+// const chat = [
+//   {
+//     id: 1,
+//     chat: "Demo Chat 1",
+//   },
+//   {
+//     id: 2,
+//     chat: "Demo Chat 2",
+//   },
+//   {
+//     id: 3,
+//     chat: "Demo Chat 3",
+//   },
+//   {
+//     id: 4,
+//     chat: "Demo Chat 4",
+//   },
+// ];
+
 const Sidebar: React.FC<SidebarProps> = memo(
   ({ setIsSidebarOpen, isSidebarOpen }) => {
-    console.log("Sidebar rendered"); // Add this line
+    const [chat, setChat] = React.useState<{ id: string }[]>([]);
+
+    React.useEffect(() => {
+      const fetchChat = async () => {
+        if (localStorage.getItem("chat")) {
+          const chatData = JSON.parse(localStorage.getItem("chat") || "");
+          setChat(chatData);
+          console.log("fetched chat from local storage");
+          return;
+        }
+        const chatData = await getChat();
+        setChat(chatData);
+        localStorage.setItem("chat", JSON.stringify(chatData));
+        console.log("fetched chat from supabase");
+      };
+
+      fetchChat();
+    }, []);
 
     return (
       <div className="flex flex-col w-[250px] ">
@@ -42,13 +61,13 @@ const Sidebar: React.FC<SidebarProps> = memo(
           <h1 className="font-semibold text-xl">Sidebar</h1>
         </div>
         <div className="w-full h-screen flex flex-col p-2">
-          {demoData.map((data) => (
+          {chat.map((data) => (
             <Link
               href={`/chat/${data.id}`}
               key={data.id}
               className="px-2 py-1 hover:bg-[#1A1C1E] cursor-pointer rounded-lg "
             >
-              <p className="text-sm">{data.chat}</p>
+              <p className="text-sm">{data.id}</p>
             </Link>
           ))}
         </div>

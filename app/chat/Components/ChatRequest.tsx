@@ -3,19 +3,25 @@ import { FaArrowUp } from "react-icons/fa6";
 import { LuCircleStop } from "react-icons/lu";
 interface ChatRequestProps {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (
+    e: React.FormEvent<HTMLFormElement>,
+    data: { body: { uuid: string | undefined } }
+  ) => void;
   input: string;
   isLoading: boolean;
   stop: () => void;
+  id: string | undefined;
 }
 
 const ChatRequest: React.FC<ChatRequestProps> = memo(
-  ({ handleInputChange, handleSubmit, input, isLoading, stop }) => {
+  ({ handleInputChange, handleSubmit, input, isLoading, stop, id }) => {
     return (
       <div className="mt-1 sticky bottom-0 left-0 right-0 h-[80px] bg-[#1A1C1E] rounded-b-3xl flex items-center justify-center">
         <div className="w-[350px] md:w-[700px] pl-6 pr-3 py-3 bg-black rounded-full ">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              handleSubmit(e, { body: { uuid: id } });
+            }}
             className="flex items-center justify-between gap-4"
           >
             <input

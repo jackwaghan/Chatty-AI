@@ -9,16 +9,8 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (messages.length > 0 && messages[messages.length - 1].role === "user") {
-      if (messagesEndRef.current) {
-        messagesEndRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-  console.log(messages); // Add this line
   return (
     <div className="flex-1 flex items-center justify-center overflow-y-scroll bg-[#1A1C1E] rounded-tl-3xl rounded-tr-3xl">
       <div className="w-[330px] md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
@@ -44,7 +36,7 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} className="pb-[100%] lg:pb-[60%]" />
+        <div ref={messagesEndRef} className="pb-[60px]" />
       </div>
     </div>
   );

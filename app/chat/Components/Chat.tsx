@@ -5,6 +5,7 @@ import ChatResponse from "./ChatResponse";
 import ChatRequest from "./ChatRequest";
 import { useChat } from "@ai-sdk/react";
 import { createIdGenerator } from "ai";
+import { v4 as uuidv4 } from "uuid";
 interface ChatProps {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarOpen: boolean;
@@ -17,14 +18,14 @@ interface ChatProps {
 }
 const Chat: React.FC<ChatProps> = memo(
   ({ setIsSidebarOpen, isSidebarOpen, initialMessages, chatid }) => {
-    const [id, setId] = React.useState<string | undefined>(undefined);
+    const [id, setId] = React.useState<string | undefined>(chatid);
     React.useEffect(() => {
-      if (chatid) {
-        setId(chatid);
+      if (id === undefined) {
+        const newId = uuidv4();
+        setId(newId);
+        localStorage.removeItem("chat");
       }
-      const newId = createIdGenerator({ size: 16 })();
-      setId(newId);
-    }, [chatid]);
+    }, [id, chatid]);
     const {
       handleInputChange,
       handleSubmit,
@@ -35,13 +36,12 @@ const Chat: React.FC<ChatProps> = memo(
     } = useChat({
       api: "/api/Gemini",
       initialMessages: initialMessages,
-      id: id,
+      sendExtraMessageFields: true,
       generateId: createIdGenerator({
         prefix: "user",
         size: 16,
       }),
     });
-    console.log(id);
     return (
       <div className="flex flex-col  p-2 h-full w-full">
         <Header
@@ -57,6 +57,7 @@ const Chat: React.FC<ChatProps> = memo(
           input={input}
           isLoading={isLoading}
           stop={stop}
+          id={id}
         />
       </div>
     );
