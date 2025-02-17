@@ -1,29 +1,33 @@
-import React from "react";
+import { redirect } from "next/navigation";
 import Page from "../page";
 import { getMessages } from "@/app/action";
-import { redirect } from "next/navigation";
 
-export type messageType = {
+export type MessageType = {
   id: string;
   role: string;
   content: string;
 };
-const page = async ({ params }: { params: { chatid: string } }) => {
-  const { chatid } = await params;
+
+interface PageProps {
+  params: { chatid: string }; // ✅ Explicitly define params type
+}
+
+const ChatPage = async ({ params }: PageProps) => {
+  const { chatid } = params; // ✅ Ensure params is treated correctly
+
   const history = await getMessages(chatid);
-  if (history.length === 0) {
+
+  if (!history || history.length === 0) {
     redirect("/chat");
   }
 
-  const chat = history[0].message.map((message: messageType) => {
-    return {
-      id: message.id,
-      role: message.role,
-      content: message.content,
-    };
-  });
+  const chat = history[0].message.map((message: MessageType) => ({
+    id: message.id,
+    role: message.role,
+    content: message.content,
+  }));
 
   return <Page sidebar={true} initialMessage={chat} chatid={chatid} />;
 };
 
-export default page;
+export default ChatPage;
