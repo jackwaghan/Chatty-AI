@@ -1,16 +1,26 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef } from "react";
 import { MarkdownRenderer } from "./ReactMarkdown";
 
 interface ChatResponseProps {
   messages: { id: string; role: string; content: string }[];
 }
 
-const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
+const ChatResponse: React.FC<ChatResponseProps> = ({ messages }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    if (messages.length) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "user") {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   }, [messages]);
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
   return (
     <div className="flex-1 flex items-center justify-center overflow-y-scroll bg-[#1A1C1E] rounded-tl-3xl rounded-tr-3xl">
       <div className="w-[330px] md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
@@ -36,11 +46,10 @@ const ChatResponse: React.FC<ChatResponseProps> = memo(({ messages }) => {
             </div>
           </div>
         ))}
-        <div ref={messagesEndRef} className="pb-[60px]" />
+        <div ref={messagesEndRef} className="pt-[100%] md:pt-[20%]" />
       </div>
     </div>
   );
-});
-ChatResponse.displayName = "ChatResponse";
+};
 
 export default ChatResponse;

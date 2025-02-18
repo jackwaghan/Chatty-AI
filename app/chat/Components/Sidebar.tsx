@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = memo(
     }, []);
 
     return (
-      <div className="flex flex-col w-[250px] ">
+      <div className="flex flex-col w-[250px] fixed inset-y-2 bg-black text-white z-50">
         <div className="h-[60px] w-full items-center flex p-2 gap-12">
           {isSidebarOpen && (
             <div
