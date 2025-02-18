@@ -1,9 +1,9 @@
 "use client";
+import { useStore } from "@/lib/hooks";
 import Chat from "./Components/Chat";
 import React from "react";
 
 const Page = ({
-  sidebar,
   chatid,
   initialMessage,
 }: {
@@ -15,13 +15,16 @@ const Page = ({
     content: string;
   }[];
 }) => {
+  const { sidebar } = useStore();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(sidebar || false);
   return (
-    <div className="flex h-dvh w-dvw pl-[250px] bg-black text-white overflow-hidden ">
+    <div
+      className={`flex h-full w-full overflow-hidden duration-500 transform-gpu ${!sidebar ? "pl-0" : "pl-[250px]"}`}
+    >
       <Chat
-        initialMessages={initialMessage}
         setIsSidebarOpen={setIsSidebarOpen}
         isSidebarOpen={isSidebarOpen}
+        initialMessages={initialMessage}
         chatid={chatid}
       />
     </div>

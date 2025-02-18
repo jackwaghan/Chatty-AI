@@ -6,6 +6,7 @@ import ChatRequest from "./ChatRequest";
 import { useChat } from "@ai-sdk/react";
 import { createIdGenerator } from "ai";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 interface ChatProps {
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isSidebarOpen: boolean;
@@ -16,24 +17,18 @@ interface ChatProps {
     content: string;
   }[];
 }
-const Chat: React.FC<ChatProps> = memo(
-  ({ setIsSidebarOpen, isSidebarOpen, initialMessages, chatid }) => {
-    const [id, setId] = React.useState<string | undefined>(chatid);
-    React.useEffect(() => {
-      if (id === undefined) {
-        const newId = uuidv4();
-        setId(newId);
-        localStorage.removeItem("chat");
-      }
-    }, [id, chatid]);
-    const {
-      handleInputChange,
-      handleSubmit,
-      isLoading,
-      messages,
-      input,
-      stop,
-    } = useChat({
+const Chat: React.FC<ChatProps> = memo(({ initialMessages, chatid }) => {
+  const [id, setId] = React.useState<string | undefined>(chatid);
+  const router = useRouter();
+  React.useEffect(() => {
+    if (id === undefined) {
+      const newId = uuidv4();
+      setId(newId);
+      localStorage.removeItem("chat");
+    }
+  }, [id, chatid]);
+  const { handleInputChange, handleSubmit, isLoading, messages, input, stop } =
+    useChat({
       api: "/api/Gemini",
       initialMessages: initialMessages,
       sendExtraMessageFields: true,
@@ -41,28 +36,29 @@ const Chat: React.FC<ChatProps> = memo(
         prefix: "user",
         size: 16,
       }),
+      onFinish: () => {
+        console.log("chat finished");
+        router.push(`/chat/${id}`);
+      },
     });
-    return (
-      <div className="flex flex-col  p-2 h-full w-full">
-        <Header
-          setIsSidebarOpen={setIsSidebarOpen}
-          isSidebarOpen={isSidebarOpen}
-        />
 
-        <ChatResponse messages={messages} />
+  return (
+    <div className="flex flex-col p-2 h-full w-full">
+      <Header />
 
-        <ChatRequest
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          input={input}
-          isLoading={isLoading}
-          stop={stop}
-          id={id}
-        />
-      </div>
-    );
-  }
-);
+      <ChatResponse messages={messages} />
+
+      <ChatRequest
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+        input={input}
+        isLoading={isLoading}
+        stop={stop}
+        id={id}
+      />
+    </div>
+  );
+});
 Chat.displayName = "Chat";
 
 export default Chat;

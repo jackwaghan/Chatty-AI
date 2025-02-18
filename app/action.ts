@@ -42,7 +42,8 @@ export const getChatId = async (id: string) => {
   const { data, error } = await supabase
     .from("Chatty -AI")
     .select("chatid")
-    .eq("chatid", id);
+    .eq("chatid", id)
+    .order("created_at", { ascending: false });
 
   if (error) {
     throw new Error(error.message);

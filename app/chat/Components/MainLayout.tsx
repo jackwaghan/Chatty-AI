@@ -1,16 +1,13 @@
 "use client";
+import dynamic from "next/dynamic";
 import React from "react";
-import Sidebar from "./Sidebar";
+const Sidebar = dynamic(() => import("./Sidebar"));
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
   return (
-    <div className="h-dvh w-dvw flex text-white">
-      <Sidebar
-        setIsSidebarOpen={setIsSidebarOpen}
-        isSidebarOpen={isSidebarOpen}
-      />
-      <main>{children}</main>
+    <div className="flex h-full w-full text-white">
+      <Sidebar />
+      {children}
     </div>
   );
 };
