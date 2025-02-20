@@ -12,7 +12,6 @@ const Header = () => {
   const [model, setModel] = React.useState("Gemini");
   const [isModelOpen, setIsModelOpen] = React.useState(false);
   const modelRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (!isModelOpen) return;
     const handleClickOutside = (event: MouseEvent) => {
@@ -23,7 +22,6 @@ const Header = () => {
         setIsModelOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -37,7 +35,10 @@ const Header = () => {
         {!sidebar && (
           <button
             className="p-1.5 rounded-lg hover:bg-[#1A1C1E] cursor-pointer hover:scale-95 duration-200"
-            onClick={() => setSidebar(true)}
+            onClick={() => {
+              setSidebar(true);
+              localStorage.setItem("sidebar", "true");
+            }}
             aria-label="Toggle Sidebar"
           >
             <TbLayoutSidebarFilled size={30} className="text-white/80" />

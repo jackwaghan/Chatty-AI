@@ -1,5 +1,5 @@
 "use client";
-import { useStore } from "@/lib/hooks";
+import { useDevice, useStore } from "@/lib/hooks";
 import Chat from "./Components/Chat";
 import React from "react";
 
@@ -15,11 +15,26 @@ const Page = ({
     content: string;
   }[];
 }) => {
-  const { sidebar } = useStore();
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(sidebar || false);
+  const device = useDevice();
+  const { sidebar, setSidebar, setLoading } = useStore();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(sidebar);
+
+  React.useEffect(() => {
+    if (device === "mobile") return;
+    if (localStorage.getItem("sidebar") === "true") {
+      setSidebar(true);
+    } else {
+      setSidebar(false);
+    }
+  }, [setSidebar, device]);
+  React.useEffect(() => {
+    if (device === "mobile") setSidebar(false);
+    setLoading(false);
+  }, [device, setSidebar, setLoading]);
+
   return (
     <div
-      className={`flex h-full w-full overflow-hidden duration-500 transform-gpu ${!sidebar ? "pl-0" : "pl-[250px]"}`}
+      className={`flex w-full h-full overflow-hidden duration-500 transform-gpu ${sidebar && device === "desktop" ? "pl-[250px]" : "pl-0"} "}`}
     >
       <Chat
         setIsSidebarOpen={setIsSidebarOpen}

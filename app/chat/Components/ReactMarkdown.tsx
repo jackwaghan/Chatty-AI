@@ -36,7 +36,7 @@ const MarkdownRenderer = memo(({ content }: { content: string }) => {
     ),
     pre: ({ ...props }) => (
       <pre
-        className="bg-black px-4 pb-2 pt-4 rounded-xl overflow-x-scroll text-sm my-4"
+        className="border-white/10 bg-neutral-900 border  px-4 pb-2 pt-4 rounded-xl overflow-x-scroll text-sm my-4"
         {...props}
       />
     ),
