@@ -15,6 +15,7 @@ interface dataTypes {
 
 export async function POST(req: Request) {
   const { messages, uuid } = await req.json();
+
   const result = await streamText({
     model: google("gemini-2.0-flash-001"),
     system:
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
           responseMessages: response.messages,
         }),
       };
+
       await saveMessage(data);
     },
   });

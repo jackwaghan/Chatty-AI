@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Page from "../page";
 import { getMessages } from "@/app/action";
-import { Suspense } from "react";
-import Loading from "../Components/Loading";
+// import { Suspense } from "react";
+// import Loading from "../Components/Loading";
 
 export type MessageType = {
   id: string;
@@ -21,14 +21,13 @@ export async function generateMetadata(props: {
   };
 }
 
-// Fixed: Removed async from parent component
 const ChatPage = async (props: { params: Promise<{ chatid: string }> }) => {
   const { chatid } = await props.params;
 
   return (
-    <Suspense fallback={<Loading />}>
-      <ChatContent chatid={chatid} />
-    </Suspense>
+    //<Suspense fallback={<Loading />}>
+    <ChatContent chatid={chatid} />
+    // </Suspense>
   );
 };
 
