@@ -30,7 +30,7 @@ const ChatResponse: React.FC<ChatResponseProps> = ({ messages }) => {
               <div
                 className={` ${
                   message.role === "user"
-                    ? " px-3 py-1.5 rounded-2xl bg-neutral-800 w-fit"
+                    ? " px-3 py-1.5 rounded-2xl bg-neutral-700 w-fit overflow-x-auto"
                     : "w-full"
                 }`}
               >
