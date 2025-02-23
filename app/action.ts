@@ -2,7 +2,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-
+import { createClient as Auth } from "@/utils/supabase/server";
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
   process.env.SUPABASE_URL!,
@@ -11,13 +11,14 @@ const supabase = createClient(
 
 interface dataTypes {
   id: string;
+  chatid: string;
   messages: { id: string; role: string; content: string }[];
 }
 
 export const saveMessage = async (value: dataTypes) => {
   const { data, error } = await supabase
     .from("Chatty-AI")
-    .upsert({ id: value.id, message: value.messages })
+    .upsert({ id: value.id, chatid: value.chatid, message: value.messages })
     .select();
 
   if (error) {
@@ -26,11 +27,13 @@ export const saveMessage = async (value: dataTypes) => {
   return data;
 };
 
-export const getMessages = async (id: string) => {
+export const getMessages = async (id: string, chatid: string) => {
   const { data, error } = await supabase
     .from("Chatty-AI")
-    .select("*")
-    .eq("id", id);
+    .select()
+    .eq("id", id)
+    .eq("chatid", chatid)
+    .select();
 
   if (error) {
     redirect("/chat");
@@ -38,24 +41,31 @@ export const getMessages = async (id: string) => {
   return data;
 };
 
-export const getChatId = async (id: string) => {
-  const { data, error } = await supabase
-    .from("Chatty -AI")
-    .select("chatid")
-    .eq("chatid", id)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new Error(error.message);
+export const getChatId = async () => {
+  const supabase = await Auth();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/login");
   }
-  return data[0].chatid;
-};
 
-export const getChat = async () => {
-  const { data, error } = await supabase.from("Chatty-AI").select("id");
+  const { data, error } = await supabase
+    .from("Chatty-AI")
+    .select()
+    .eq("id", user.id)
+    .select("chatid");
 
   if (error) {
     throw new Error(error.message);
   }
   return data;
+};
+
+export const getUser = async () => {
+  const supabase = await Auth();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
 };

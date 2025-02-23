@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Page from "../page";
 import { getMessages } from "@/app/action";
-// import { Suspense } from "react";
-// import Loading from "../Components/Loading";
+import { createClient } from "@/utils/supabase/server";
 
 export type MessageType = {
   id: string;
@@ -22,19 +21,16 @@ export async function generateMetadata(props: {
 }
 
 const ChatPage = async (props: { params: Promise<{ chatid: string }> }) => {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/login");
+  }
+  const { id } = user;
   const { chatid } = await props.params;
-
-  return (
-    //<Suspense fallback={<Loading />}>
-    <ChatContent chatid={chatid} />
-    // </Suspense>
-  );
-};
-
-export default ChatPage;
-
-const ChatContent = async ({ chatid }: { chatid: string }) => {
-  const history = await getMessages(chatid);
+  const history = await getMessages(id, chatid);
 
   if (!history || history.length === 0) {
     redirect("/chat");
@@ -49,3 +45,5 @@ const ChatContent = async ({ chatid }: { chatid: string }) => {
 
   return <Page sidebar={true} initialMessage={chat} chatid={chatid} />;
 };
+
+export default ChatPage;

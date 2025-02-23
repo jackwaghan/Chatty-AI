@@ -5,9 +5,10 @@ import Loading from "./Loading";
 
 interface ChatResponseProps {
   messages: { id: string; role: string; content: string }[];
+  isLoading: boolean;
 }
 
-const ChatResponse: React.FC<ChatResponseProps> = ({ messages }) => {
+const ChatResponse: React.FC<ChatResponseProps> = ({ messages, isLoading }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { loading } = useStore();
 
@@ -42,6 +43,11 @@ const ChatResponse: React.FC<ChatResponseProps> = ({ messages }) => {
               </div>
             </div>
           ))}
+          {isLoading && (
+            <div className="animate-pulse  text-white/40 ">
+              <p>Thinking . . . </p>
+            </div>
+          )}
           <div ref={messagesEndRef} className="pb-5" />
         </div>
       ) : (

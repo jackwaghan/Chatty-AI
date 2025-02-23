@@ -4,6 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import Link from "next/link";
 import { useStore } from "@/lib/hooks";
+import { useRouter } from "next/navigation";
 
 const modelList = ["Gemini", "OpenAI", "Claude"];
 
@@ -27,7 +28,7 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isModelOpen]);
-
+  const router = useRouter();
   return (
     <div className="sticky h-[55px] top-2 left-2 right-2 justify-between flex items-center gap-2 pb-2 px-2">
       <div className="flex items-center gap-2">
@@ -44,12 +45,14 @@ const Header = () => {
             <TbLayoutSidebarFilled size={30} className="text-white/80" />
           </button>
         )}
-        <Link
-          href="/chat"
+        <div
           className="hidden md:flex p-2 rounded-lg hover:bg-[#1A1C1E] cursor-pointer mt-1 hover:scale-95 duration-200"
+          onClick={() => {
+            router.push("/chat");
+          }}
         >
           <LuMessageSquarePlus size={25} className="text-white/80 " />
-        </Link>
+        </div>
         <div
           ref={modelRef}
           className="px-2 py-1.5 rounded-lg hover:bg-[#1A1C1E] relative flex  items-center justify-center gap-3 cursor-pointer"

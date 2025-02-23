@@ -1,21 +1,21 @@
-import { getChat } from "@/app/action";
+import { getChatId, getUser } from "@/app/action";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { TbLayoutSidebarFilled } from "react-icons/tb";
 import Loading from "./Loading";
 import { useDevice, useStore } from "@/lib/hooks";
 import { usePathname } from "next/navigation";
-
 const Sidebar = () => {
   const device = useDevice();
   const { sidebar, setSidebar, setLoading } = useStore();
-  const [chat, setChat] = React.useState<{ id: string }[]>([]);
+  const [chat, setChat] = React.useState<{ chatid: string }[]>([]);
   const [path, setPath] = React.useState<string>("");
+  const [user, setUser] = React.useState<string | undefined>("");
   const [isLoading, setIsLoading] = React.useState(true);
   const pathname = usePathname();
   const SidebarRef = React.useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (sidebar && device === "desktop") return;
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -33,15 +33,24 @@ const Sidebar = () => {
 
   React.useEffect(() => {
     setPath(pathname);
-    console.log(pathname);
     const fetchChat = async () => {
-      const chatData = await getChat();
+      const chatData = await getChatId();
       setChat(chatData);
       setIsLoading(false);
     };
 
     fetchChat();
   }, [pathname]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const fetchUser = async () => {
+      const data = await getUser();
+      setUser(data?.email);
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div
@@ -64,18 +73,18 @@ const Sidebar = () => {
       </div>
 
       {!isLoading ? (
-        <div className="w-full h-screen flex flex-col p-4 md:p-2 overflow-y-scroll gap-1.5">
+        <div className="w-full h-screen flex flex-col p-4 md:p-2 overflow-y-scroll gap-1.5 border-t border-white/10">
           {chat.map((data) => (
             <Link
-              key={data.id}
-              href={`/chat/${data.id}`}
+              key={data.chatid}
+              href={`/chat/${data.chatid}`}
               onClick={() => {
                 if (device === "mobile") setSidebar(false);
                 setLoading(true);
               }}
-              className={`px-2 py-1.5 pr-10 hover:bg-[#1A1C1E] rounded-lg ${path === `/chat/${data.id}` ? "bg-[#1A1C1E] " : ""}`}
+              className={`px-2 py-1.5 pr-10 hover:bg-[#1A1C1E] rounded-lg ${path === `/chat/${data.chatid}` ? "bg-[#1A1C1E] " : ""}`}
             >
-              <p className="text-sm truncate">{data.id}</p>
+              <p className="text-sm truncate">{data.chatid}</p>
             </Link>
           ))}
           {chat.length === 0 && (
@@ -88,7 +97,7 @@ const Sidebar = () => {
         <Loading />
       )}
 
-      <Profile />
+      <Profile user={user} />
     </div>
   );
 };
@@ -97,11 +106,10 @@ Sidebar.displayName = "Sidebar";
 
 export default Sidebar;
 
-const Profile = () => {
+const Profile = ({ user }: { user: string | undefined }) => {
   return (
-    <div className="h-[60px] w-full flex items-center gap-4 justify-center">
-      <h1 className="">Logo</h1>
-      <h1>Jack Waghan A S</h1>
+    <div className="h-[60px] w-full flex items-center gap-4 justify-center border-t border-white/10 shadow-2xl">
+      <h1 className="text-sm">{user}</h1>
     </div>
   );
 };
