@@ -34,7 +34,7 @@ const Page = ({
 
   return (
     <div
-      className={`flex w-full h-full overflow-hidden duration-500 transform-gpu ${sidebar && device === "desktop" ? "pl-[250px]" : "pl-0"} "}`}
+      className={`flex  antialiased w-dvw h-dvh overflow-hidden duration-500 transform-gpu ${sidebar && device === "desktop" ? "pl-[250px]" : "pl-0"} "}`}
     >
       <Chat
         setIsSidebarOpen={setIsSidebarOpen}
