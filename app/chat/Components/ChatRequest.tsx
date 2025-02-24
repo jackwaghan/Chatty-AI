@@ -28,7 +28,7 @@ const ChatRequest: React.FC<ChatRequestProps> = ({
 }) => {
   return (
     <div className="mt-1 sticky bottom-0 left-0 right-0 h-[80px] bg-[#1A1C1E] rounded-b-3xl flex items-center justify-center">
-      <div className="w-[350px] md:w-[700px] pl-6 pr-3 py-3 bg-black rounded-full ">
+      <div className="w-[80%] lg:w-[40%] pl-6 pr-3 py-3 bg-black rounded-full ">
         <form
           onSubmit={(e) => {
             handleSubmit(e, { body: { uuid: id, user: user } });

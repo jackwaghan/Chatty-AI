@@ -20,7 +20,7 @@ const ChatResponse: React.FC<ChatResponseProps> = ({ messages, isLoading }) => {
       className={`"flex-1 h-full w-full overflow-hidden flex items-center justify-center  bg-[#1A1C1E] rounded-tr-3xl rounded-tl-3xl " ${!loading ? "overflow-y-scroll" : ""}`}
     >
       {!loading ? (
-        <div className="w-[330px] md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
+        <div className="w-full p-4  md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
           {messages.map((message) => (
             <div
               key={message.id}

@@ -39,13 +39,13 @@ const MarkdownRenderer = memo(({ content }: { content: string }) => {
     ),
     code: ({ ...props }) => (
       <code
-        className="bg-white/5 text-yellow-300 px-1 py-0.5 rounded text-base"
+        className="bg-white/5 text-yellow-300 px-1 py-1.5 rounded text-base"
         {...props}
       />
     ),
     pre: ({ ...props }) => (
       <pre
-        className="border-white/10 bg-neutral-900 border px-4 pb-2 pt-4 rounded-xl overflow-x-scroll text-sm my-4"
+        className="border-white/10 bg-neutral-900 border  rounded-xl overflow-x-scroll text-sm p-4"
         {...props}
       />
     ),
@@ -61,27 +61,19 @@ const MarkdownRenderer = memo(({ content }: { content: string }) => {
     ),
     table: ({ ...props }) => (
       <table
-        className="min-w-full rounded-2xl border border-white/20 rounded"
+        className="grid overflow-x-auto min-w-full rounded-2xl border border-white/20"
         {...props}
       />
     ),
-    thead: ({ ...props }) => <thead className="rounded" {...props} />,
-    tbody: ({ ...props }) => <tbody className="rounded" {...props} />,
+    thead: ({ ...props }) => <thead className="" {...props} />,
+    tbody: ({ ...props }) => <tbody className="" {...props} />,
     tr: ({ ...props }) => (
-      <tr className="border-b border-gray-700 rounded" {...props} />
+      <tr className="border-b border-gray-700" {...props} />
     ),
     th: ({ ...props }) => (
-      <th className="px-4 py-2 text-left text-gray-300 rounded" {...props} />
+      <th className="px-4 py-2 text-left text-gray-300" {...props} />
     ),
-    td: ({ ...props }) => (
-      <td className="px-4 py-2 text-gray-400 rounded" {...props} />
-    ),
-    blockquote: ({ ...props }) => (
-      <blockquote
-        className="border-l-4 border-gray-500 pl-4 italic text-gray-400 rounded"
-        {...props}
-      />
-    ),
+    td: ({ ...props }) => <td className="px-4 py-2 text-gray-400" {...props} />,
   };
 
   return (

@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     system:
       "You are a helpful assistant. Make the user feel heard and understood. Provide helpful information and resources and  make it short and sweet.",
     messages,
-    experimental_transform: smoothStream({ chunking: "word" }),
+    experimental_transform: smoothStream({ chunking: "word", delayInMs: 5 }),
     experimental_generateMessageId: createIdGenerator({
       prefix: "assistant",
       size: 16,
