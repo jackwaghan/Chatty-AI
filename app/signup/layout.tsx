@@ -19,9 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} h-dvh w-dvw overflow-hidden`}>
-        {children}
-      </body>
+      <body className={`${poppins.className}`}>{children}</body>
     </html>
   );
 }

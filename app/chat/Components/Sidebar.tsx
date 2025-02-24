@@ -55,7 +55,7 @@ const Sidebar = () => {
   return (
     <div
       ref={SidebarRef}
-      className={`flex flex-col w-[250px] inset-y-2 bg-black text-white z-50 duration-500 fixed transform-gpu ${sidebar ? "translate-x-0 " : "-translate-x-full "}`}
+      className={`flex flex-col w-[300px] md:w-[250px] inset-y-2 bg-black text-white z-50 duration-500 fixed transform-gpu ${sidebar ? "translate-x-0 " : "-translate-x-full "}`}
     >
       <div className="h-[60px] w-full items-center flex p-2 gap-12">
         {sidebar && (
