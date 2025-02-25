@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getUser } from "../action";
-import { login } from "./action";
+import { login } from "../action";
 import Link from "next/link";
 import { ChevronsLeft } from "lucide-react";
 export default async function LoginPage() {

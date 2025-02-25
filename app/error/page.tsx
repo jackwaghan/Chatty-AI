@@ -1,5 +1,7 @@
-"use client";
-
 export default function ErrorPage() {
-  return <p>Sorry, something went wrong</p>;
+  return (
+    <div className="flex justify-center items-center h-dvh w-dvw overflow-hidden">
+      <p className="text-xl">Sorry, something went wrong</p>
+    </div>
+  );
 }

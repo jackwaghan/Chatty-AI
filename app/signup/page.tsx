@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getUser } from "../action";
-import { signup } from "../login/action";
+import { signup } from "../action";
 import Link from "next/link";
 import { ChevronsLeft } from "lucide-react";
 

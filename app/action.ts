@@ -3,6 +3,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createClient as Auth } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
+
 // Create a single supabase client for interacting with your database
 const supabase = createClient(
   process.env.SUPABASE_URL!,
@@ -69,3 +71,38 @@ export const getUser = async () => {
   } = await supabase.auth.getUser();
   return user;
 };
+
+export async function login(formData: FormData) {
+  const supabase = await Auth();
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signInWithPassword(data);
+
+  if (error) {
+    console.log(error);
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/chat");
+}
+
+export async function signup(formData: FormData) {
+  const supabase = await Auth();
+
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { error } = await supabase.auth.signUp(data);
+
+  if (error) {
+    console.error(error.code);
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/chat");
+}
