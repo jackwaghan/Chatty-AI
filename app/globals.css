@@ -23,3 +23,7 @@
 html {
   @apply bg-black text-white;
 }
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}

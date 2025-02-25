@@ -5,7 +5,7 @@ const Sidebar = dynamic(() => import("./Sidebar"));
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex h-full w-full text-white">
+    <div className="flex h-dvh w-dvw antialiased overflow-hidden text-white">
       <Sidebar />
       {children}
     </div>

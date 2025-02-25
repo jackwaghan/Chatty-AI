@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { MarkdownRenderer } from "./ReactMarkdown";
 import { useStore } from "@/lib/hooks";
 import Loading from "./Loading";
+import EmptyPage from "./EmptyPage";
 
 interface ChatResponseProps {
   messages: { id: string; role: string; content: string }[];
@@ -19,7 +20,7 @@ const ChatResponse: React.FC<ChatResponseProps> = ({ messages, isLoading }) => {
     <div
       className={`"flex-1 h-full w-full overflow-hidden flex items-center justify-center  bg-[#1A1C1E] rounded-tr-3xl rounded-tl-3xl " ${!loading ? "overflow-y-scroll" : ""}`}
     >
-      {!loading ? (
+      {!loading && messages.length > 0 ? (
         <div className="w-full p-4  md:w-[700px] pt-5 flex mx-auto h-full flex-col gap-6 text-white/80">
           {messages.map((message) => (
             <div
@@ -50,8 +51,10 @@ const ChatResponse: React.FC<ChatResponseProps> = ({ messages, isLoading }) => {
           )}
           <div ref={messagesEndRef} className="pb-5" />
         </div>
-      ) : (
+      ) : loading ? (
         <Loading />
+      ) : (
+        <EmptyPage />
       )}
     </div>
   );

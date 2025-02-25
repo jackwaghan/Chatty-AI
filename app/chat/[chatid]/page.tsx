@@ -15,8 +15,8 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const { chatid } = await props.params;
   return {
-    title: `Chat ${chatid} - Chatty AI`,
-    description: `Continue your conversation in chat ${chatid} with Chatty AI.`,
+    title: `${chatid}`,
+    description: `Continue your conversation for ${chatid}`,
   };
 }
 
@@ -36,12 +36,11 @@ const ChatPage = async (props: { params: Promise<{ chatid: string }> }) => {
     redirect("/chat");
   }
 
-  const chat =
-    history[0]?.message?.map((message: MessageType) => ({
-      id: message.id,
-      role: message.role,
-      content: message.content,
-    })) || [];
+  const chat = history[0].message.map((message: MessageType) => ({
+    id: message.id,
+    role: message.role,
+    content: message.content,
+  }));
 
   return <Page sidebar={true} initialMessage={chat} chatid={chatid} />;
 };

@@ -55,7 +55,7 @@ const Sidebar = () => {
   return (
     <div
       ref={SidebarRef}
-      className={`flex flex-col w-[300px] md:w-[250px] inset-y-2 bg-black text-white z-50 duration-500 fixed transform-gpu ${sidebar ? "translate-x-0 " : "-translate-x-full "}`}
+      className={`flex flex-col w-[300px] md:w-[250px] h-full py-2 bg-black text-white z-50 duration-500 fixed transform-gpu ${sidebar ? "translate-x-0 " : "-translate-x-full "}`}
     >
       <div className="h-[60px] w-full items-center flex p-2 gap-12">
         {sidebar && (
@@ -82,7 +82,7 @@ const Sidebar = () => {
                 if (device === "mobile") setSidebar(false);
                 setLoading(true);
               }}
-              className={`px-2 py-1.5 pr-10 hover:bg-[#1A1C1E] rounded-lg ${path === `/chat/${data.chatid}` ? "bg-[#1A1C1E] " : ""}`}
+              className={`px-2 py-1.5 pr-10 hover:bg-[#1A1C1E] rounded-lg ${path === `/chat/${data.chatid}` ? "bg-[#1A1C1E] " : "text-white/80"}`}
             >
               <p className="text-sm truncate">{data.chatid}</p>
             </Link>
