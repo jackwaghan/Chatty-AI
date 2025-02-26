@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Source from "../public/image.png";
+import Source from "../public/Chat_Template.png";
 import Link from "next/link";
 export default function Home() {
   return (
