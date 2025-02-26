@@ -1,17 +1,12 @@
 import Image from "next/image";
 import Source from "../public/Chat_Template.png";
-import Link from "next/link";
+import Login from "./components/Login";
 export default function Home() {
   return (
     <div className="flex flex-col h-dvh w-dvw overflow-hidden px-5 md:px-10">
       <div className="flex w-full justify-between h-[60px] items-center mt-5 ">
         <p className="text-xl font-semibold">Chatty AI</p>
-        <Link
-          href="/login"
-          className="px-4 py-1.5 border border-white/10 rounded-lg bg-[#1A1C1E] cursor-pointer hover:scale-95 duration-200"
-        >
-          <p className="text-base font-medium tracking-wide">Login</p>
-        </Link>
+        <Login />
       </div>
       <div className="w-full h-full flex justify-center ">
         <div className="max-w-6xl text-pretty">
