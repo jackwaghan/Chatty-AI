@@ -9,6 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date().toISOString(),
       changeFrequency: "weekly",
       priority: 1,
+      images: [
+        "https://res.cloudinary.com/dqswovyzi/image/upload/v1740592387/Landing_page_zsgit4.png",
+      ],
     },
   ];
 }

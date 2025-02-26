@@ -90,6 +90,30 @@ export const metadata: Metadata = {
     "chatbot ai jackwaghan chat",
     "chat",
   ],
+  openGraph: {
+    title: "Chatty AI",
+    description:
+      "Unlock the power of multiple AI models in one lightning-fast chat experience.",
+    url: "https://chatty.jackwaghan.com",
+    type: "website",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dqswovyzi/image/upload/v1740592387/Landing_page_zsgit4.png",
+        width: 1905,
+        height: 928,
+        alt: "Chatty AI Image source",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chatty AI",
+    description:
+      "Unlock the power of multiple AI models in one lightning-fast chat experience.",
+    images: [
+      "https://res.cloudinary.com/dqswovyzi/image/upload/v1740592387/Landing_page_zsgit4.png",
+    ],
+  },
 };
 
 export default function RootLayout({
