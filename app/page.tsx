@@ -1,12 +1,16 @@
 import Image from "next/image";
 import Source from "../public/Chat_Template.png";
 import Login from "./components/Login";
+import Github from "./components/Github";
 export default function Home() {
   return (
     <div className="flex flex-col h-dvh w-dvw overflow-hidden px-5 md:px-10">
       <div className="flex w-full justify-between h-[60px] items-center mt-5 ">
         <p className="text-xl font-semibold">Chatty AI</p>
-        <Login />
+        <div className="flex gap-4 items-center">
+          <Github />
+          <Login />
+        </div>
       </div>
       <div className="w-full h-full flex justify-center ">
         <div className="max-w-6xl text-pretty">
@@ -19,7 +23,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className=" h-full w-full flex justify-center items-center md:mt-20">
+      <div className="h-full w-full flex justify-center items-center md:mt-20">
         <div className="md:p-2.5 p-2  border border-white/10 rounded-lg bg-white/10 w-full md:w-[85%]">
           <Image
             alt="Chatty AI Image source"
